@@ -2,17 +2,20 @@
 
 namespace BBC_Coding_Kata
 {
-
+    // Class contains methods and variables used to convert decimal numbers to Roman Numerals
     public class RomanNumerals
     {
+        // Public method accessed for conversion, this method can convert decimal numbers between 1-3999
         public static string ConvertToNumerals(int DecimalNumber)
         {
             string NumeralNumber = "";
             int X = 10, C = 100, M = 1000;
 
             int tenThousand = DecimalNumber / M;
+
             NumeralNumber = numeralThousands(tenThousand);
             DecimalNumber = DecimalNumber % M;
+
             if (NumeralNumber == "Cannot support numbers over 3999") { }
             else
             {
@@ -41,7 +44,6 @@ namespace BBC_Coding_Kata
             if (input < MMax)
                 for (int i = 1; i <= input; i++)
                     numeral = numeral + "M";
-
             else
                 numeral = "Cannot support numbers over 3999";
 
@@ -68,23 +70,21 @@ namespace BBC_Coding_Kata
             { one = "I"; five = "V"; ten = "X"; }
 
             if (input < IV)
-                for (int i = 1; i <= input; i++)
+                for (int i = I; i <= input; i++)
                     numeral = numeral + one;
             else if (input == IV)
             {
-                for (int i = 1; i <= (V - input); i++)
-                    numeral = numeral + one;
-                numeral = numeral + five;
+                numeral = numeral + one + five;
             }
             else if (input >= V && input < IX)
             {
                 numeral = numeral + five;
-                for (int i = 1; i <= (input - V); i++)
+                for (int i = I; i <= (input - V); i++)
                     numeral = numeral + one;
             }
             else if (input == IX)
             {
-                for (int i = 1; i <= (X - input); i++)
+                for (int i = I; i <= (X - input); i++)
                     numeral = numeral + one;
                 numeral = numeral + ten;
             }

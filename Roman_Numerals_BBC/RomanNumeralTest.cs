@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
 namespace BBC_Coding_Kata
 {
     public class RomanNumeralTest
