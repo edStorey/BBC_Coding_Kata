@@ -10,37 +10,57 @@ namespace BBC_Coding_Kata
         {
             string NumeralNumber = "";
             int X = 10, C = 100, M = 1000;
+            
+            // The input number is divided into separate digits
+            // The first digit to be converted is 10^3
+            int currentDigit = DecimalNumber / M;
 
-            int tenThousand = DecimalNumber / M;
-
-            NumeralNumber = numeralThousands(tenThousand);
+            // The 10^3 digit is converted into roman numerals and the remainder is stored
+            NumeralNumber = numeralInThousands(currentDigit);
             DecimalNumber = DecimalNumber % M;
 
+            // If the input number is over 3999 no more conversion is required and the following string is accepted
             if (NumeralNumber == "Cannot support numbers over 3999") { }
             else
             {
-                int thousand = DecimalNumber / C;
+                // The digit at 10^2 is stored
+                currentDigit = DecimalNumber / C;
 
-                NumeralNumber = NumeralNumber + numeral(thousand, DecimalNumber);
+                // The digit at 10^2 is converted to roman numerals and concatenated to output from digit at 10^3
+                // This method accepts the full input as a second argument
+                // The remainder is again stored
+                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
                 DecimalNumber = DecimalNumber % C;
 
-                int hundred = DecimalNumber / X;
+                // The digit at 10^1 is stored
+                currentDigit = DecimalNumber / X;
 
-                NumeralNumber = NumeralNumber + numeral(hundred, DecimalNumber);
+                // The digit at 10^1 is converted to roman numerals and concatenated
+                // The remainder is stored
+                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
                 DecimalNumber = DecimalNumber % X;
 
-                int ten = DecimalNumber;
-                NumeralNumber = NumeralNumber + numeral(ten, DecimalNumber);
+                // The digit at 10^0 is stored
+                currentDigit = DecimalNumber;
+
+                // The digit at 10^0 is converted to roman numerals and concatenated
+                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
             }
+
+            // The full roman numeral or error message is outputted
             return NumeralNumber;
         }
 
-
-        private static string numeralThousands(int input)
+        // This method converts decimal digits at 10^3
+        private static string numeralInThousands(int input)
         {
+            // Since numbers above 3999 are not accepted, if the number is 4 or above
+            // an error message is outputted
             string numeral = "";
             int MMax = 4;
 
+            // If input is less than 4 concatenate Roman number "M" the appropriate number of times
+            // Else output error message
             if (input < MMax)
                 for (int i = 1; i <= input; i++)
                     numeral = numeral + "M";
@@ -49,8 +69,9 @@ namespace BBC_Coding_Kata
 
             return numeral;
         }
-
-        private static string numeral(int input, int digit)
+        
+        // This method converts decimal numbers under 10^3 to roman numerals
+        private static string numeral(int digit, int fullNumber)
         {
             string numeral = "";
             int I = 1;
@@ -59,35 +80,44 @@ namespace BBC_Coding_Kata
             int IX = 9;
             int X = 10;
             int C = 100;
+            int M = 1000;
             string one, five, ten;
 
-
-            if (digit >= X && digit < C)
+            // Based on the full input number decide which range of numbers is being converted
+            // if full number is between 10-99 use numerals: X, L, C = 10, 50, 100
+            // if full number is between 100-999 use numerals: C, D, M = 100, 500, 1000
+            // else use numerals: I, V, X = 1, 5, 10 when converting the input digit
+            if (fullNumber >= X && fullNumber < C)
             { one = "X"; five = "L"; ten = "C"; }
-            else if (digit >= C)
+            else if (fullNumber >= C && fullNumber < M)
             { one = "C"; five = "D"; ten = "M"; }
             else
             { one = "I"; five = "V"; ten = "X"; }
 
-            if (input < IV)
-                for (int i = I; i <= input; i++)
+            // If digit is < 4 concatonate appropriate number of I/X/C
+            if (digit < IV)
+                for (int i = I; i <= digit; i++)
                     numeral = numeral + one;
-            else if (input == IV)
+            // If digit == 4 output IV/XL/CD
+            else if (digit == IV)
             {
                 numeral = numeral + one + five;
             }
-            else if (input >= V && input < IX)
+            // If digit > 4 && < 9 concatonate I/X/C after V/L/D approiate number of times
+            else if (digit >= V && digit < IX)
             {
                 numeral = numeral + five;
-                for (int i = I; i <= (input - V); i++)
+                for (int i = I; i <= (digit - V); i++)
                     numeral = numeral + one;
             }
-            else if (input == IX)
+            // If digit = 9 output IX/XC/CM
+            else if (digit == IX)
             {
-                for (int i = I; i <= (X - input); i++)
+                for (int i = I; i <= (X - digit); i++)
                     numeral = numeral + one;
                 numeral = numeral + ten;
             }
+            // Else no ouput
             else
                 numeral = "";
 
