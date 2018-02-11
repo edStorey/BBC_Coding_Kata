@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BBC_Coding_Kata
 {
@@ -65,4 +66,5 @@ namespace BBC_Coding_Kata
             return error;
         }
     }
+
 }

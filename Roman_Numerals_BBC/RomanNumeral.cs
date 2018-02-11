@@ -6,78 +6,32 @@ namespace BBC_Coding_Kata
     public class RomanNumerals
     {
         // Public method accessed for conversion, this method can convert decimal numbers between 1-3999
-        public static string ConvertToNumerals(int DecimalNumber)
+        public static string ConvertToNumerals(int decimalNumber)
         {
-            string NumeralNumber = "";
-            int X = 10, C = 100, M = 1000;
+            string numeralNumber = "";
+            int I = 1, X = 10, C = 100, M = 1000, MMax = 3999;
+            int[] divisor = { M, C, X, I };
+
+            // If the input number is over 3999 no conversion is required and the following string is returned
+            if (decimalNumber > MMax) { return numeralNumber = "Cannot support numbers over 3999"; }
             
-            // The input number is divided into separate digits
-            // The first digit to be converted is 10^3
-            int currentDigit = DecimalNumber / M;
-
-            // The 10^3 digit is converted into roman numerals and the remainder is stored
-            NumeralNumber = numeralInThousands(currentDigit);
-            DecimalNumber = DecimalNumber % M;
-
-            // If the input number is over 3999 no more conversion is required and the following string is accepted
-            if (NumeralNumber == "Cannot support numbers over 3999") { }
-            else
-            {
-                // The digit at 10^2 is stored
-                currentDigit = DecimalNumber / C;
-
-                // The digit at 10^2 is converted to roman numerals and concatenated to output from digit at 10^3
-                // This method accepts the full input as a second argument
-                // The remainder is again stored
-                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
-                DecimalNumber = DecimalNumber % C;
-
-                // The digit at 10^1 is stored
-                currentDigit = DecimalNumber / X;
-
-                // The digit at 10^1 is converted to roman numerals and concatenated
-                // The remainder is stored
-                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
-                DecimalNumber = DecimalNumber % X;
-
-                // The digit at 10^0 is stored
-                currentDigit = DecimalNumber;
-
-                // The digit at 10^0 is converted to roman numerals and concatenated
-                NumeralNumber = NumeralNumber + numeral(currentDigit, DecimalNumber);
+            // Each digit is isolated by dividing by a power of ten
+            // the Roman Numeral for that digit is calculated and concatenated with any previous character in the string numerNumber
+            // the remander is then stored and used in the next loop iteration
+            for (int i = 0; i < divisor.Length; i++){
+                int currentDigit = decimalNumber / divisor[i];
+                numeralNumber = numeralNumber + numeralConverter(currentDigit, decimalNumber);
+                decimalNumber = decimalNumber % divisor[i];           
             }
 
-            // The full roman numeral or error message is outputted
-            return NumeralNumber;
+            // The full roman numeral is outputted
+            return numeralNumber;
         }
 
-        // This method converts decimal digits at 10^3
-        private static string numeralInThousands(int input)
+         private static string numeralConverter(int digit, int fullNumber)
         {
-            // Since numbers above 3999 are not accepted, if the number is 4 or above
-            // an error message is outputted
-            string numeral = "";
-            int MMax = 4;
+            string numeralOut;
 
-            // If input is less than 4 concatenate Roman number "M" the appropriate number of times
-            // Else output error message
-            if (input < MMax)
-                for (int i = 1; i <= input; i++)
-                    numeral = numeral + "M";
-            else
-                numeral = "Cannot support numbers over 3999";
-
-            return numeral;
-        }
-        
-        // This method converts decimal numbers under 10^3 to roman numerals
-        private static string numeral(int digit, int fullNumber)
-        {
-            string numeral = "";
-            int I = 1;
-            int IV = 4;
-            int V = 5;
-            int IX = 9;
             int X = 10;
             int C = 100;
             int M = 1000;
@@ -86,16 +40,39 @@ namespace BBC_Coding_Kata
             // Based on the full input number decide which range of numbers is being converted
             // if full number is between 10-99 use numerals: X, L, C = 10, 50, 100
             // if full number is between 100-999 use numerals: C, D, M = 100, 500, 1000
+            // if full number is greater than 1000 only numeral M will needed
             // else use numerals: I, V, X = 1, 5, 10 when converting the input digit
             if (fullNumber >= X && fullNumber < C)
             { one = "X"; five = "L"; ten = "C"; }
             else if (fullNumber >= C && fullNumber < M)
             { one = "C"; five = "D"; ten = "M"; }
+            else if (fullNumber >= M)
+            { one = "M"; five = "M"; ten = "M"; }
             else
             { one = "I"; five = "V"; ten = "X"; }
 
+            numeralOut = numeral(digit, one, five, ten);
+
+            return numeralOut;
+        }
+           
+        
+        // This method converts decimal numbers under 10^3 to roman numerals
+        private static string numeral(int digit, string one, string five, string ten)
+        {
+            string numeral = "";
+            int I = 1;
+            int IV = 4;
+            int V = 5;
+            int IX = 9;
+            int X = 10;
+            string blankNume = "";
+            int loopSkip = 0;
+
             // If digit is < 4 concatonate appropriate number of I/X/C
             if (digit < IV)
+
+                numeral = numeral + numeralLoop(numeral, blankNume, one, blankNume, digit);
                 for (int i = I; i <= digit; i++)
                     numeral = numeral + one;
             // If digit == 4 output IV/XL/CD
@@ -121,6 +98,16 @@ namespace BBC_Coding_Kata
             else
                 numeral = "";
 
+            return numeral;
+        }
+
+        private static string numeralLoop(string numeral, string preNum, string centreNums, string postNum, int loopLength)
+        {
+            int I = 1;
+            numeral = numeral + preNum;
+            for (int i = I; i <= loopLength; i++)
+                numeral = numeral + centreNums;
+            numeral = numeral + postNum;
             return numeral;
         }
     } ;
