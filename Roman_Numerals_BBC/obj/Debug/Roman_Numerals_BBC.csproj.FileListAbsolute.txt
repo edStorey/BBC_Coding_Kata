@@ -1,6 +1,5 @@
-C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\bin\Debug\Roman_Numerals_BBC.pdb
-C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\obj\Debug\Roman_Numerals_BBC.csprojResolveAssemblyReference.cache
-C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\obj\Debug\Roman_Numerals_BBC.pdb
 C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\bin\Debug\Roman_Numerals_BBC.dll.config
 C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\bin\Debug\Roman_Numerals_BBC.dll
+C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\bin\Debug\Roman_Numerals_BBC.pdb
 C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\obj\Debug\Roman_Numerals_BBC.dll
+C:\Users\Ed\Documents\GitHub\BBC_Coding_Kata\Roman_Numerals_BBC\obj\Debug\Roman_Numerals_BBC.pdb

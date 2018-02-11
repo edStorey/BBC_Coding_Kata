@@ -45,26 +45,29 @@ namespace BBC_Coding_Kata
         };
 
         // This method compares an input to its expected output
-        public static bool numeralTest()
+        public static void numeralTest()
         {
-            bool error = false;
-
             // For each var in Dictionary Deciman_Roman, test whether the expected outputs are correct
             // using the key as input and value as expected output
-            // if an output is incorrect set output bool error = true and break loop  
-            // else set bool error = false
+            // if an output is incorrect an exception is thrown
             foreach (var dec in Decimal_Roman)
             {
-                if (RomanNumerals.ConvertToNumerals(dec.Key) != dec.Value)
+                if (RomanNumerals.convertToNumerals(dec.Key) != dec.Value)
                 {
-                    error = true;
-                    break;
+                    string exceptionMessage = string.Format("Incorrect Output Given, Numeral output: {0} does not match Decimal input: {1}.", dec.Value, dec.Key);
+                    throw new RomanNumeralException(exceptionMessage);
                 }
-                else
-                    error = false;
             }
-            return error;
         }
+    }
+
+    public class RomanNumeralException : Exception
+    {
+        public RomanNumeralException(string message)
+            : base(message)
+        { 
+        }
+    
     }
 
 }
