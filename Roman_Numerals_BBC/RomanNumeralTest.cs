@@ -52,7 +52,7 @@ namespace BBC_Coding_Kata
             // if an output is incorrect an exception is thrown
             foreach (var dec in Decimal_Roman)
             {
-                if (RomanNumerals.convertToNumerals(dec.Key) != dec.Value)
+                if (RomanNumeralGenerator.generate(dec.Key) != dec.Value)
                 {
                     string exceptionMessage = string.Format("Incorrect Output Given, Numeral output: {0} does not match Decimal input: {1}.", dec.Value, dec.Key);
                     throw new RomanNumeralException(exceptionMessage);

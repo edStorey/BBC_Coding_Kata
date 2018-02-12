@@ -3,10 +3,10 @@
 namespace BBC_Coding_Kata
 {
     // Class contains methods and variables used to convert decimal numbers to Roman Numerals
-    public class RomanNumerals
+    public class RomanNumeralGenerator
     {
         // Public method accessed for conversion, this method can convert decimal numbers between 1-3999 to Roman Numerals
-        public static string convertToNumerals(int decimalNumber)
+        public static string generate(int decimalNumber)
         {
             string numeralNumber = "";
             int I = 1, X = 10, C = 100, M = 1000, MMax = 3999;
